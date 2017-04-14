@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>新北市三峽區文化歷史古蹟巡禮</title>
+<link href="js/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+<script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="js/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+<script src="j1.js">
+</script>
+<style>
+img {
+	border:#FF9 10px solid;
+	float:left;
+	margin-right:20px;
+}
+#textshow {font-family:"標楷體" ;
+font-size:26px;
+}
+#address{
+	font-family:"標楷體" ;
+font-size:28px;
+float:none;
+color:#F90;
+	}
+#txtmain {
+	font-family:"標楷體" ;
+font-size:26px;
+	}
+#map_div{
+	margin:0,auto;
+	width: 480px;
+	height:440px;
+	border :5px solid #fff;
+	border-radius:5px;
+	box-shadow:2px 2px 2px 2px #666;}
+#page #topic ul li a {
+	color: #004080;font-size:25px;
+}
+li a{
+	color: #004080;font-size:25px;
+	}
+</style>
+<script>
+$(function(){
+	//ch();
+	var lan0=""//"24.982973";
+	var lon0=""//"121.450991";
+	var title="";
+	var mapdiv="";
+	var le=j0.length;var s="<ul data-role='listview' data-inset='true' data-theme='e'>";
+	for(var i=0;i<le;i++){
+	s=s+"<li><a href='#'><img src='images/j1"+(i+1)+".jpg' width='60px' height='60px' style='margin:6px'>"+(i+1)+"."+j0[i].name+"</a></li>";
+		
+		}
+		s=s+"</ul>"//alert(s);
+	$("#listitem").html(s);
+	
+	$("#listitem li").click(function(){
+		var t=$(this).text();
+		var j=t.indexOf(".");
+		var n=t.slice(0,j);
+		ch(n,t);
+		});
+	function ch(a,de){
+		var t=d0[a-1].des;
+		//alert(t);
+		$.mobile.changePage("#page3");
+		$("#textshow").text(t);
+		$("#showmsg div img").attr("src","images/j1"+a+".jpg");
+		$("#page3 div h1").text(de);$("#page4 div h1").text(de);
+		var ads=j0[a-1].address;
+		var ads2="<a href='#page4'>Go:"+ads+"</a>"
+		$("#address").html(ads2);
+		lon0=j0[a-1].wgs84aX;lan0=j0[a-1].wgs84aY;
+		curGeoPoint.lat=lan0; curGeoPoint.lng=lon0;
+		title=j0[a-1].name;mapdiv="map_div";
+		}
+	//function(){
+		$("#page4").bind("pageshow", GetMap);
+		//$("#page").bind("pageshow", first_map);
+		 // 載入地圖和地標
+	function first_map(){
+	curGeoPoint.lat="24.8710355"; curGeoPoint.lng="121.2672989";
+		mapdiv="map_first";
+		GetMap();
+		}
+	// 定義顯示 mappage 頁面時執行行 GetMap() 載入地圖和地標  
+	
+	var curGeoPoint={lat:lan0, lng:lon0}; 
+	function GetGeo(lat,lng) {	
+       //取得目前定位
+	    curGeoPoint.lat=lat;
+	    curGeoPoint.lng=lng;
+	    e.preventDefault();  // 避免重複觸發
+	}
+	
+	// 以該點為中心顯示地圖
+	function GetMap() {	
+		var map_div = document.getElementById(mapdiv);
+		// 取得目前定位點
+	    var latlng = new google.maps.LatLng(curGeoPoint.lat, curGeoPoint.lng); 
+		var gmap = new google.maps.Map(map_div, {
+			zoom:14,
+			center: latlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		// 建立地標
+		var marker=new google.maps.Marker({
+			position: latlng,
+			map: gmap,
+			icon: "images/myicon.png",
+			title: title//"新北高工"
+		});	
+	}	
+	})
+</script>
+</head> 
+<body> 
+
+<div data-role="page" id="page" data-theme="c" data-add-back-btn="true">
+	<div data-role="header" data-theme="e" >
+		<h1><a href="../index.html" data-role="button" target="_self">回首頁</a>----新北市三峽區文化歷史古蹟巡禮----</h1>
+	</div>
+	<div data-role="content" id="topic">	
+		<ul data-role="listview" >
+			<li data-inline="true"><a href="#page2"><strong></strong>三峽區文化歷史古蹟巡禮-Go</a></li>
+            
+		</ul>		
+        
+        <div><img src="images/f.png" width="50%" height="40%" style="float:left">
+        <p id="txtmain">
+         三峽區，原名為三角湧（羅馬拼音Sann-kak-íng）為台灣新北市的市轄區之一，位於臺北盆地的西南隅，三面環山，僅西北一隅面向大漢溪河谷平原。東與新北市新店區、烏來區為界，南與桃園市復興區，西與桃園市大溪區為界，北與鶯歌區、樹林區、土城區為界。三峽市區早期由於地處山麓地帶，又有溪流匯集，市況一度甚為繁榮，直到日治時代後期均有船舶運輸，碼頭地點約在目前祖師廟前的橋頭位置，其後因沙石淤積而不再有航運之利，發展漸趨停頓，人口數也長期停滯，被板橋、土城等一一超越。1997年「臺北大學特定區」設立後，逐漸發展成新興社區，並移入大量人口，2009年9月底時全區人口數已突破10萬人。</p>
+        </div>
+			
+			
+	</div>
+	<div data-role="footer" data-theme="e" data-position="fixed">
+		<h4>三峽區-資料参考網路維基百科及新北市文化歷史資料庫</h4>
+	</div>
+</div>
+
+<div data-role="page" id="page2"  data-theme="b" data-add-back-btn="true">
+	<div data-role="header" data-theme="e" >
+		<h1>新北市三峽區文化歷史古蹟巡禮</h1>
+	</div>
+	<div data-role="content" id="listitem">	
+		
+	</div>
+	<div data-role="footer" data-theme="e">
+		<h4>新北市三峽區文化歷史古蹟巡禮</h4>
+	</div>
+</div>
+
+<div data-role="page" id="page3" data-add-back-btn="true">
+	<div data-role="header" data-theme="e">
+		<h1>第 3 頁</h1>
+	</div>
+	<div data-role="content" id="showmsg">	
+		<div>
+   <img src="" width="60%" height="200px"><div id="textshow">dlklsdf</div>
+        </div>	
+	</div>
+	<div data-role="footer" data-theme="e">
+		<h4 id="address">頁尾</h4>
+	</div>
+</div>
+
+<div data-role="page" id="page4" data-add-back-btn="true">
+	<div data-role="header" data-theme="e">
+		<h1 >第 4 頁</h1>
+	</div>
+	<div data-role="content">	
+		<center><div id="map_div"></div></center>		
+	</div>
+	<div data-role="footer" data-theme="e">
+		<h4>新北市三峽區文化歷史古蹟巡禮</h4>
+	</div>
+</div>
+
+</body>
+</html>
